@@ -3,7 +3,7 @@ nanopore_simulator = function(genomefile, coverage, readlength, err, read_output
     raw_data = readLines(genomefile) # load data
     genome = paste(raw_data[-1], collapse = "") # ignore the description of data in first line and transfer data into one long string
     length = nchar(genome) # get the genome length
-    read_start = sample(length, coverage*length, replace = T) # select read start position randomly
+    read_start = sample(length, coverage*length/readlength, replace = T) # select read start position randomly
     perfect_simulate = c() # the "perfect" reads without error
     for (i in 1:length(read_start)){
         perfect_simulate[i] = substr(genome, read_start[i] , read_start[i] + readlength -1)
